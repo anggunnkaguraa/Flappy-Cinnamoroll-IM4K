@@ -5,6 +5,8 @@ const ctx = canvas.getContext("2d");
 // Load sound effects
 const jumpSound = new Audio("wing.ogg");
 const gameOverSound = new Audio("die.ogg");
+const backgroundSound = new Audio("backsound.mp3"); // Backsound
+backgroundSound.loop = true; // Memutar berulang kali
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -171,6 +173,8 @@ function update() {
     gameOver = true;
     finalScoreEl.textContent = score;
     gameOverSound.play();
+    backgroundSound.pause(); // Menghentikan backsound
+    backgroundSound.currentTime = 0; // Mengatur ulang waktu pemutaran
     gameOverScreen.style.display = "block";
   }
   draw();
@@ -194,6 +198,7 @@ function jump() {
   if (!gameStarted) {
     gameStarted = true;
     tutorialScreen.style.display = "none";
+    backgroundSound.play(); // Memulai backsound
   }
   velocityY = jumpStrength;
   jumpSound.play();
